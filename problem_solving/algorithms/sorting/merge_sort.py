@@ -1,3 +1,6 @@
+# time: O(nlogn), space: O(n)
+
+
 # User function Template for python3
 class Solution:
     def merge(self, left_arr, right_arr):
@@ -25,6 +28,7 @@ class Solution:
 
         return merged_arr
 
+    # time: O(nlogn), space: O(n)
     def mergeSort(self, arr, begin, end):
         if end - begin <= 1:
             return arr[begin:end]

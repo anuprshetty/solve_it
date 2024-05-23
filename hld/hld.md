@@ -23,4 +23,26 @@
 
 ### Caching
 
-- how to scale up data?
+- how to scale up database servers? solution: insert caching layer above the database layer.
+  - ![caching](./images/caching.png)
+- caching massively reduces the amount of load on the database.
+- cache is really just another machine like a linux server running some specialized software like memcached, redis, cassandra, etc (caching systems).
+- cache is just a bunch of key-value pairs. So the web servers first look for the key in cache, if it exists (cache hit), then they read from cache. Otherwise (cache miss) they look in the database to fetch it and store that into the cache for future use. So caching massively reduces the amount of load on the database.
+- essentially these caching data stores are just key-value pairs. Because of that they are highly distributed and scale very well. we can group together a bunch of servers and run some caching system like memcached across all of those distributed machines. So anytime memcached need to store the information, it just picks one of the available machine and stores data in it. And then memcached can just read back from that machine using just a simple hashing function to determine where that key is stored.
+- quite often these caching data stores are in-memory. So they are not necessarily persisting data to disk (They can like in case of redis. But disk is usually much slower as we have to spin through hard drives). Because the data is often just stored in-memory, it is extremely fast for both reading and writing. Its essentially almost the fastest thing that we have out there. Its highly distributed and can scale across millions of machines if you needed to. And each of these machines can be configured with more and more memory.
+- caching is great for high write scenarios. example: you are updating a counter for the total number of visitors on the website.
+- why caching bad?
+  - data often isn't in memory. There is a good chance that we can lose the data if there is a power outage. So you dont usually want to put high value user data in there. Usually its just something redundant. Maybe data that you can stand to lose because there is another copy of it in the actual database.
+  - some caching data stores like redis have the ability to persist their in-memory data onto disk, such that even if you lose power, you still retain that data.
+  - 2 strategies for persisting in-memory data: (tradeoff - performance vs consistency)
+    1. write through cache (low performance and high consistency): When you write into the cache, you also write into the database layer under it. Because of this, write slowed down tremendously as you have to wait for the database to finish writing data onto the disk. And that task can be locked up if there are a whole bunch of different writes coming in at the same time. But the benefit of this is if there is a lot more reads happening in your system, then the write through cache could work.
+    2. write back cache (high performance and low consistency): When you write into the cache, you are pretty much done. But then there is this background process that will slowly go through all of the writes and persist those onto the disk. But the problem here is that there is some inconsistency between whats in the cache and whats in your database. And if you suddenly were to lose power, then there could be some data that would be lost.
+- configuring caches on what to do when they run out of space? then data in the cache could be kicked out for a more relevant data.
+  - first in first out order
+  - least recently used
+- caching is really not that complicated. Example: API for memcached is really just get(key) and set(key, value).
+- we can also use cache for storing temporary data.
+
+### Content delivery networks (CDN)
+
+- how do you make sure that images, assets, videos are being loaded quickly for users in anywhere in any part of the world? solution: CDN

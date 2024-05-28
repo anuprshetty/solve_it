@@ -45,4 +45,17 @@
 
 ### Content delivery networks (CDN)
 
-- how do you make sure that images, assets, videos are being loaded quickly for users in anywhere in any part of the world? solution: CDN
+- how do you make sure that any type of static files like images, assets, videos are being loaded quickly for users in anywhere in any part of the world? solution: CDN
+- CDN is essentially a series of distributed servers across the world that can cache your data.
+- lets say we have our primary web server or db server in India. Now a user from USA accesses our website. So he need to download many static files like images, js scripts, etc. So it's gonna take much longer time to download all static files from the original web server based in India as opposed to if these static files are already be cached (CDN) at the location geographically near to him (like USA).
+- flow: CDN url for static file (like image) in our website --> CDN looks for nearest CDN cache/server --> loads static file from that CDN server.
+- 2 techniques for implementation of CDN: (tradeoff - performance vs cost) --> Here generally pull is better than push.
+  1. pull (very first request is slow and CDN costs/fees/charges are low): static file url request to CDN cache/server. if cache miss, then redirect to original source web server.
+  2. push (very first request is fast and CDN costs/fees/charges are high): load all static files to CDN cache/server at start. So all requests are served by CDN cache/server itself (cache hit always).
+- sometimes we update static files like js scripts. So we usually append an extra url parameter like version (<www.cdn.server.com/app.js?version=2>) to refresh the CDN cache to get the updated static file.
+- ![cdn](./images/cdn.png)
+
+### Relational databases and indexing
+
+- indexing makes database searching faster.
+- index is a binary search tree in the database based on the certain field. So time complexity for searching is logarithmic.

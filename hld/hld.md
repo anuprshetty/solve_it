@@ -23,7 +23,7 @@
 
 ### Caching
 
-- how to scale up database servers? solution: insert caching layer above the database layer.
+- how to fasten fetching (reading) data from database servers? solution: insert caching layer above the database layer.
   - ![caching](./images/caching.png)
 - caching massively reduces the amount of load on the database.
 - cache is really just another machine like a linux server running some specialized software like memcached, redis, cassandra, etc (caching systems).
@@ -59,3 +59,17 @@
 
 - indexing makes database searching faster.
 - index is a binary search tree in the database based on the certain field. So time complexity for searching is logarithmic.
+- DBMS internally uses B trees and B+ trees for indexing.
+- classification of indexing techniques:
+  - single level index (binary search tree)
+    - primary index (on [primary key or unique key] + table rows ordered on that attribute)
+    - clustering index (on non key + table rows ordered on that attribute)
+    - secondary index (on [primary key or unique key]/non key + table rows unordered on that attribute)
+  - multi-level index
+    - static (n-ary search tree)
+    - dynamic (B tree and B+ tree)
+- a composite index (also known as a compound index) is an index that is created on two or more columns of a database table. It allows for efficient querying when the query involves filtering, sorting, or both, based on multiple columns in combination.
+
+### Redundancy and replication
+
+-

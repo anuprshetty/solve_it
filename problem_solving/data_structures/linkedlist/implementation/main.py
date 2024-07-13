@@ -15,7 +15,7 @@
 # - They take more memory than arrays because they need to store references to other nodes.
 # - Nodes must be read linearly in the order that they are stored in the data structure.
 
-from linked_list import LinkedList
+from problem_solving.data_structures.linkedlist.implementation.linkedlist import LinkedList
 
 
 my_linked_list = LinkedList()
@@ -28,16 +28,19 @@ my_linked_list.insert_node("Code")
 
 my_linked_list.show()
 print(f"nodes_count_iterative: {my_linked_list.nodes_count_iterative()}")
-print(f"nodes_count_recursive_wrapper: {my_linked_list.nodes_count_recursive_wrapper()}")
+print(
+    f"nodes_count_recursive_wrapper: {my_linked_list.nodes_count_recursive_wrapper()}"
+)
 
-values = ['Python', 'Golang']
+values = ["Python", "Golang"]
 for value in values:
-	print(f"is_exists {value}: {my_linked_list.is_exists(value)}")
+    print(f"is_exists {value}: {my_linked_list.is_exists(value)}")
 
-values = ['Code', 'Golang', 'Hi', 'World']
+values = ["Code", "Golang", "Hi", "World"]
 my_linked_list.show()
 for value in values:
-	print(f"delete_node {value} : {my_linked_list.delete_node(value)}")
+    print(f"delete_node {value} : {my_linked_list.delete_node(value)}")
 my_linked_list.show()
 
 my_linked_list.show_reversed_recursive_wrapper()
+print()

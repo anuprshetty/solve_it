@@ -2,7 +2,7 @@
 
 Notes on problem solving, low level design, high level design.
 
-## Todo <!--todo:-->
+## To do <!--todo:-->
 
 - amortized time calculation in problem solving (refer cracking the code book)
 - make your own markdown table for time and space complexity chart for different operations, algorithms, etc. [best, worst, avg, and special cases if any].
